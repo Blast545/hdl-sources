@@ -163,7 +163,7 @@ output                                    IP2Bus_Error;
 		// Write to the register the enabled bytes
                 slv_reg0[(byte_index*8) +: 8] <= Bus2IP_Data[(byte_index*8) +: 8];
  
-          // Default case, output the same 
+          // Default case, output the same data already stored 
 	  default : begin
             slv_reg0 <= slv_reg0;
                     end
@@ -171,17 +171,25 @@ output                                    IP2Bus_Error;
 
     end // SLAVE_REG_WRITE_PROC
 
-  // implement slave model register read mux
-  always @( slv_reg_read_sel or slv_reg0 )
-    begin 
 
-      case ( slv_reg_read_sel )
-        1'b1 : slv_ip2bus_data <= slv_reg0;
-        default : slv_ip2bus_data <= 0;
-      endcase
 
-    end // SLAVE_REG_READ_PROC
+   // THIS WONT BE USED BECAUSE PROBABLY WE WONT BE READING
+   // FROM THE LCD SCREEN
+   // implement slave model register read mux
+   //--------------------------------------------------------------
 
+   always @( slv_reg_read_sel or slv_reg0 )
+     begin 
+	
+	case ( slv_reg_read_sel )
+          1'b1 : slv_ip2bus_data <= slv_reg0;
+          default : slv_ip2bus_data <= 0;
+	endcase
+	
+     end // SLAVE_REG_READ_PROC
+   //--------------------------------------------------------------
+
+   
   // ------------------------------------------------------------
   // Example code to drive IP to Bus signals
   // ------------------------------------------------------------
